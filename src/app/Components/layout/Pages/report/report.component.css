@@ -34,6 +34,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  background-color: ghostwhite;
 }
 
 td {
@@ -89,4 +90,11 @@ button:disabled {
 
 .mat-calendar .mat-calendar-body-abbr {
   display: block;
+}
+.mat-datepicker-content {
+  padding: 10px;
+}
+
+.mat-datepicker-toggle {
+  margin-left: 5px;
 }

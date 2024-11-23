@@ -16,7 +16,7 @@
       <mat-form-field>
         <mat-label>Month and Year</mat-label>
         <input matInput [matDatepicker]="dp" [formControl]="month" />
-        <mat-hint>MM/YYYY</mat-hint>
+        <!-- <mat-hint>MM/YYYY</mat-hint> -->
         <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker
           #dp
@@ -80,12 +80,22 @@
       <tr>
         <td>Consumed Units:</td>
         <td>{{ reportData.consumedElectricUnit }}</td>
+        <td>Principal Amount:</td>
+        <td>{{ reportData.principalAmount }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
         <td>VAT:</td>
         <td>{{ reportData.vat }}</td>
       </tr>
       <tr>
-        <td>Electricity Bill:</td>
-        <td colspan="3">{{ reportData.electricityBill }}</td>
+        <!--  <td>Electricity Bill:</td>
+        <td colspan="3">{{ reportData.electricityBill }}</td> -->
+        <td></td>
+        <td></td>
+        <td style="font-size: 14px; font-weight: bold">Electricity Bill:</td>
+        <td style="font-weight: bold">{{ reportData.electricityBill }}</td>
       </tr>
     </table>
 
@@ -106,12 +116,13 @@
       <tr>
         <td>Total Payable:</td>
         <td>
-          {{
+          <!-- {{
             (+reportData.electricityBill || 0) +
               (+reportData.gasBill || 0) +
               (+reportData.cleanerBill || 0) +
               (+reportData.houseRent || 0)
-          }}
+          }} -->
+          {{ reportData.total }}
         </td>
       </tr>
     </table>
