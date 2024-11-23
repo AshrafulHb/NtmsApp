@@ -1,0 +1,55 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row
+    >Tenant Management System
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav opened="true" mode="side" style="width: 200px">
+    <mat-nav-list>
+      <mat-list-item routerLink="/pages/tenant">
+        <div style="display: flex; gap: 5px">
+          <mat-icon mat-list-icon>group</mat-icon>
+          <div mat-line>Tenant</div>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/pages/flat">
+        <div style="display: flex; gap: 5px">
+          <mat-icon mat-list-icon>collections_bookmark</mat-icon>
+          <div mat-line>Flat</div>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/pages/emeter">
+        <div style="display: flex; gap: 5px">
+          <mat-icon mat-list-icon>electric_meter</mat-icon>
+          <div mat-line>Electric Meter</div>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/pages/ereading">
+        <div style="display: flex; gap: 5px">
+          <mat-icon mat-list-icon>edit_note</mat-icon>
+          <div mat-line>Readings</div>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/pages/report">
+        <div style="display: flex; gap: 5px">
+          <mat-icon mat-list-icon>article </mat-icon>
+          <div mat-line>Report</div>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div style="height: 90vh">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

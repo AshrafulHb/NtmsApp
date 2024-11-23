@@ -1,0 +1,119 @@
+<div class="container">
+  <h1>MONTHLY BILL</h1>
+  <h3>180/7 East Rampura, Dhaka - 1219</h3>
+
+  <mat-card>
+    <form [formGroup]="reportForm" (ngSubmit)="report()">
+      <mat-form-field appearance="outline">
+        <mat-label>Select Tenant</mat-label>
+        <mat-select formControlName="tenantId">
+          <mat-option *ngFor="let tenant of tenantList" [value]="tenant.id">
+            {{ tenant.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Month and Year</mat-label>
+        <input matInput [matDatepicker]="dp" [formControl]="month" />
+        <mat-hint>MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker
+          #dp
+          startView="multi-year"
+          (monthSelected)="setMonthAndYear($event, dp)"
+          panelClass="example-month-picker"
+        >
+        </mat-datepicker>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="reportForm.invalid"
+      >
+        Generate Report
+      </button>
+    </form>
+  </mat-card>
+
+  <div *ngIf="reportData">
+    <h3 class="section-title">Tenant Details</h3>
+    <table>
+      <tr>
+        <td>Tenant Name:</td>
+        <td>{{ reportData.tenantName }}</td>
+        <td>Flat ID:</td>
+        <td>{{ reportData.flatCode }}</td>
+        <td>Month:</td>
+        <td>{{ reportData.billingPeriod }}</td>
+      </tr>
+      <tr>
+        <td>Start Date:</td>
+        <td>{{ reportData.billStartDate }}</td>
+        <td>End Date:</td>
+        <td>{{ reportData.billEndDate }}</td>
+      </tr>
+    </table>
+
+    <h3 class="section-title">Electricity and Charges</h3>
+    <table>
+      <tr>
+        <td>Electric Meter No:</td>
+        <td>{{ reportData.electricMeterNo }}</td>
+        <td>Electricity Charge:</td>
+        <td>{{ reportData.electricityCharge }}</td>
+      </tr>
+      <tr>
+        <td>Present Reading:</td>
+        <td>{{ reportData.electricMeterCurrentReading }}</td>
+        <td>Demand Charge:</td>
+        <td>{{ reportData.demandCharge }}</td>
+      </tr>
+      <tr>
+        <td>Previous Reading:</td>
+        <td>{{ reportData.electricMeterPreviousReading }}</td>
+        <td>Meter Rent:</td>
+        <td>{{ reportData.meterRent }}</td>
+      </tr>
+      <tr>
+        <td>Consumed Units:</td>
+        <td>{{ reportData.consumedElectricUnit }}</td>
+        <td>VAT:</td>
+        <td>{{ reportData.vat }}</td>
+      </tr>
+      <tr>
+        <td>Electricity Bill:</td>
+        <td colspan="3">{{ reportData.electricityBill }}</td>
+      </tr>
+    </table>
+
+    <h3 class="section-title">Summary</h3>
+    <table class="summary-table">
+      <tr>
+        <td>Gas Bill:</td>
+        <td>{{ reportData.gasBill }}</td>
+      </tr>
+      <tr>
+        <td>Cleaner Bill:</td>
+        <td>{{ reportData.cleanerBill }}</td>
+      </tr>
+      <tr>
+        <td>House Rent:</td>
+        <td>{{ reportData.houseRent }}</td>
+      </tr>
+      <tr>
+        <td>Total Payable:</td>
+        <td>
+          {{
+            (+reportData.electricityBill || 0) +
+              (+reportData.gasBill || 0) +
+              (+reportData.cleanerBill || 0) +
+              (+reportData.houseRent || 0)
+          }}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

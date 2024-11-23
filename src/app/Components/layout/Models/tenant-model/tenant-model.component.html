@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>{{ titleCaption }} Tenant</h2>
+<mat-dialog-content>
+  <form [formGroup]="tenantForm">
+    <mat-grid-list cols="1" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput autocomplete="off" formControlName="name" />
+          <mat-icon matSuffix>account_box</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Occupation</mat-label>
+          <input matInput autocomplete="off" formControlName="occupation" />
+          <mat-icon matSuffix>work_outline</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput autocomplete="off" formControlName="paddress" />
+          <mat-icon matSuffix>home</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Telephone</mat-label>
+          <input matInput autocomplete="off" formControlName="telephone" />
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Start Date</mat-label>
+          <input matInput autocomplete="off" formControlName="startDate" />
+          <mat-icon matSuffix>calendar_today</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Flat Code</mat-label>
+
+          <mat-select formControlName="flatId">
+            <mat-option *ngFor="let flat of flatList" [value]="flat.id">
+              {{ flat.code }}</mat-option
+            >
+          </mat-select>
+          <mat-icon matSuffix>home_work</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="isActive">
+            <mat-option value="1">Active</mat-option>
+            <mat-option value="0">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn">Return</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="tenantForm.invalid"
+    (click)="saveEditTenant()"
+  >
+    {{ buttonCaption }}
+  </button>
+</mat-dialog-actions>
