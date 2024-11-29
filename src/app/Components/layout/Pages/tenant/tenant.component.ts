@@ -8,12 +8,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { TenantService } from '../../../../Services/tenant.service';
 import { UtilityService } from '../../../../Reusable/utility.service';
 import { TenantModelComponent } from '../../Models/tenant-model/tenant-model.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-    selector: 'app-tenant',
-    imports: [SharedModule],
-    templateUrl: './tenant.component.html',
-    styleUrl: './tenant.component.css'
+  selector: 'app-tenant',
+  imports: [SharedModule, MatCheckboxModule],
+  templateUrl: './tenant.component.html',
+  styleUrl: './tenant.component.css',
 })
 export class TenantComponent implements OnInit, AfterViewInit {
   tableColumns: string[] = [
@@ -28,7 +29,8 @@ export class TenantComponent implements OnInit, AfterViewInit {
     'action',
   ];
   initialData: Tenant[] = [];
-  tenantDataList = new MatTableDataSource(this.initialData);
+  tenantDataList = new MatTableDataSource<Tenant>(this.initialData);
+  showOnlyActive: boolean = false;
   @ViewChild(MatPaginator) paginationTable!: MatPaginator;
 
   constructor(
@@ -37,25 +39,47 @@ export class TenantComponent implements OnInit, AfterViewInit {
     private _utilityService: UtilityService
   ) {}
 
+  ngOnInit(): void {
+    this.getTenants();
+  }
+
   getTenants() {
     this._tenantservice.list().subscribe({
       next: (data) => {
-        if (data.status) this.tenantDataList.data = data.value;
-        else this._utilityService.showAlert('No tenant found', 'Oops');
+        if (data.status) {
+          this.initialData = data.value;
+          this.applyActiveFilter();
+        } else this._utilityService.showAlert('No tenant found', 'Oops');
       },
       error: (e) => {},
     });
   }
-  ngOnInit(): void {
-    this.getTenants();
-  }
+
   ngAfterViewInit(): void {
     this.tenantDataList.paginator = this.paginationTable;
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.tenantDataList.filter = filterValue.trim().toLocaleLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLocaleLowerCase();
+    this.tenantDataList.filter = filterValue;
+    this.tenantDataList.filterPredicate = (tenant: Tenant, filter: string) => {
+      const matchesFilter = tenant.name.toLocaleLowerCase().includes(filter);
+      const isActiveMatch = this.showOnlyActive ? tenant.isActive === 1 : true;
+      return matchesFilter && isActiveMatch;
+    };
+  }
+  toggleActiveFilter(showOnlyActive: boolean) {
+    this.showOnlyActive = showOnlyActive;
+    this.applyActiveFilter();
+  }
+
+  applyActiveFilter() {
+    const filteredData = this.showOnlyActive
+      ? this.initialData.filter((tenant) => tenant.isActive === 1)
+      : this.initialData;
+    this.tenantDataList.data = filteredData;
   }
 
   newTenant() {
