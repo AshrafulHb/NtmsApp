@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>{{ titleCaption }}Water Meter</h2>
+<mat-dialog-content>
+  <form [formGroup]="meterForm">
+    <mat-grid-list cols="1" rowHeight="80px">
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Meter No</mat-label>
+          <input matInput autocomplete="off" formControlName="meterNumber" />
+          <mat-icon matSuffix>speed</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Flat Code</mat-label>
+
+          <mat-select formControlName="flatId">
+            <mat-option *ngFor="let flat of flatList" [value]="flat.id">
+              {{ flat.code }}</mat-option
+            >
+          </mat-select>
+          <mat-icon matSuffix>home_work</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="isActive">
+            <mat-option value="1">Active</mat-option>
+            <mat-option value="0">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="warn">Return</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="meterForm.invalid"
+    (click)="saveEditMeter()"
+  >
+    {{ buttonCaption }}
+  </button>
+</mat-dialog-actions>

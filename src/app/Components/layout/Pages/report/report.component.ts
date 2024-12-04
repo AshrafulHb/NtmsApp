@@ -20,6 +20,8 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export const DATA_FORMATS = {
   parse: {
@@ -130,5 +132,33 @@ export class ReportComponent {
           this._utilityService.showAlert('Something went wrong', 'Error');
         },
       });
+  }
+
+  // Generate PDF function
+  generatePDF() {
+    const data: HTMLElement | null = document.querySelector('.container'); // Target the container div
+    if (!data) return;
+
+    html2canvas(data).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 295; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.save('monthly-bill.pdf');
+    });
+  }
+
+  saveAsJPEG() {
+    const data: HTMLElement | null = document.querySelector('.container');
+    if (!data) return;
+
+    html2canvas(data).then((canvas) => {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL('image/jpeg', 1.0); // High quality
+      link.download = 'monthly-bill.jpeg';
+      link.click();
+    });
   }
 }

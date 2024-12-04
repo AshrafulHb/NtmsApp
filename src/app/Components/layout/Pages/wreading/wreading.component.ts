@@ -1,19 +1,17 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import moment from 'moment';
-
-import { MatTableDataSource } from '@angular/material/table';
-//import { MatPaginator } from '@angular/material/paginator';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UtilityService } from '../../../../Reusable/utility.service';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { SharedModule } from '../../../../Reusable/shared/shared.module';
-import { Ereading } from '../../../../Interfaces/ereading';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { EreadingService } from '../../../../Services/ereading.service';
-import { EmeterService } from '../../../../Services/emeter.service';
-import { Emeter } from '../../../../Interfaces/emeter';
-import { EreadingModelComponent } from '../../Models/ereading-model/ereading-model.component';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Wmeter } from '../../../../Interfaces/wmeter';
+import { Wreading } from '../../../../Interfaces/wreading';
+import { UtilityService } from '../../../../Reusable/utility.service';
+import { WmeterService } from '../../../../Services/wmeter.service';
+import { WreadingService } from '../../../../Services/wreading.service';
+import moment from 'moment';
 import Swal from 'sweetalert2';
+import { WreadingModelComponent } from '../../Models/wreading-model/wreading-model.component';
 
 export const DATA_FORMATS = {
   parse: {
@@ -26,32 +24,32 @@ export const DATA_FORMATS = {
 };
 
 @Component({
-  selector: 'app-ereading',
+  selector: 'app-wreading',
   imports: [SharedModule],
-  templateUrl: './ereading.component.html',
-  styleUrl: './ereading.component.css',
+  templateUrl: './wreading.component.html',
+  styleUrl: './wreading.component.css',
   providers: [{ provide: MAT_DATE_FORMATS, useValue: DATA_FORMATS }],
 })
-export class EreadingComponent implements OnInit {
+export class WreadingComponent {
   readingForm: FormGroup;
   // readingList: Ereading[] = [];
-  meterList: Emeter[] = [];
+  meterList: Wmeter[] = [];
   tableColumns: string[] = [
-    'emeterNumber',
+    'wmeterNumber',
     'startDate',
     'endDate',
     'previousReading',
     'currentReading',
     'action',
   ];
-  initialData: Ereading[] = [];
+  initialData: Wreading[] = [];
   readingData = new MatTableDataSource(this.initialData);
 
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private _readingService: EreadingService,
-    private _meterService: EmeterService,
+    private _readingService: WreadingService,
+    private _meterService: WmeterService,
     private _utilityService: UtilityService,
     private changeDetectorRef: ChangeDetectorRef
   ) {
@@ -68,15 +66,7 @@ export class EreadingComponent implements OnInit {
       },
       error: (e) => {},
     });
-    /*this.readingForm.get('emeterNumber')?.valueChanges.subscribe((value) => {
-      this.readingForm.patchValue({
-        meterId: '',
-        startDate: '',
-        endDate: '',
-      });
-    });*/
   }
-  ngOnInit(): void {}
 
   searchReadings() {
     let _startDate = moment(this.readingForm.value.startDate).format(
@@ -109,18 +99,19 @@ export class EreadingComponent implements OnInit {
         error: (e) => {},
       });
   }
-  newReading(reading: Ereading) {
-    this._readingService.loadLastReading(reading.emeterId).subscribe({
+
+  newReading(reading: Wreading) {
+    this._readingService.loadLastReading(reading.wmeterId).subscribe({
       next: (result) => {
         if (result.status)
           this.dialog
-            .open(EreadingModelComponent, {
+            .open(WreadingModelComponent, {
               disableClose: true,
-              width: '400px',
+
               data: {
-                emeterNumber: reading.emeterNumber,
+                wmeterNumber: reading.wmeterNumber,
                 previousReading: result.value.currentReading,
-                emeterId: reading.emeterId,
+                wmeterId: reading.wmeterId,
                 id: 0,
               },
             })
@@ -131,11 +122,10 @@ export class EreadingComponent implements OnInit {
       },
     });
   }
-  editReading(reading: Ereading) {
+  editReading(reading: Wreading) {
     this.dialog
-      .open(EreadingModelComponent, {
+      .open(WreadingModelComponent, {
         disableClose: true,
-        width: '400px',
         data: reading,
       })
       .afterClosed()
@@ -143,10 +133,10 @@ export class EreadingComponent implements OnInit {
         if (result === 'true') this.searchReadings();
       });
   }
-  deleteReading(reading: Ereading) {
+  deleteReading(reading: Wreading) {
     Swal.fire({
       title: 'Do you want to delete reading?',
-      text: reading.emeterNumber,
+      text: reading.wmeterNumber,
       icon: 'warning',
       confirmButtonColor: '#3085d6',
       confirmButtonText: 'Yes, delete',

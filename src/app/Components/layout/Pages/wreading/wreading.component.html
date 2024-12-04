@@ -1,0 +1,124 @@
+<h1 style="margin: 20px 0px 0px 40px">Readings</h1>
+<mat-card style="margin: 20px 40px 40px 40px">
+  <form [formGroup]="readingForm" (ngSubmit)="searchReadings()">
+    <div class="form-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Meter Number</mat-label>
+
+        <mat-select formControlName="meterId">
+          <mat-option *ngFor="let meter of meterList" [value]="meter.id">
+            {{ meter.meterNumber }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Start date</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          formControlName="startDate"
+          [matDatepicker]="picker1"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker1"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>End date</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          formControlName="endDate"
+          [matDatepicker]="picker2"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="readingForm.invalid"
+        type="submit"
+        class="search-button"
+      >
+        <mat-icon>search</mat-icon>Search
+      </button>
+    </div>
+  </form>
+
+  <div class="mat-elevation-z2" style="margin-top: 15px">
+    <table mat-table [dataSource]="readingData">
+      <ng-container matColumnDef="wmeterNumber">
+        <th mat-header-cell *matHeaderCellDef>Meter No</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.wmeterNumber }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef>Start Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.startDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef>End Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.endDate }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="previousReading">
+        <th mat-header-cell *matHeaderCellDef>Previous Reading</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.previousReading }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="currentReading">
+        <th mat-header-cell *matHeaderCellDef>Current Reading</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.currentReading }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef style="width: 80px"></th>
+        <td mat-cell *matCellDef="let element">
+          <div style="display: flex; gap: 5px">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="newReading(element)"
+            >
+              <mat-icon mat-list-icon>add</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="editReading(element)"
+            >
+              <mat-icon mat-list-icon>edit</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteReading(element)"
+            >
+              <mat-icon mat-list-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+    </table>
+  </div>
+</mat-card>

@@ -5,6 +5,8 @@ import { FlatComponent } from './Components/layout/Pages/flat/flat.component';
 import { EmeterComponent } from './Components/layout/Pages/emeter/emeter.component';
 import { EreadingComponent } from './Components/layout/Pages/ereading/ereading.component';
 import { ReportComponent } from './Components/layout/Pages/report/report.component';
+import { WmeterComponent } from './Components/layout/Pages/wmeter/wmeter.component';
+import { WreadingComponent } from './Components/layout/Pages/wreading/wreading.component';
 
 export const routes: Routes = [
   { path: '', component: LayoutComponent, pathMatch: 'full' },
@@ -17,6 +19,8 @@ export const routes: Routes = [
       { path: 'flat', component: FlatComponent },
       { path: 'emeter', component: EmeterComponent },
       { path: 'ereading', component: EreadingComponent },
+      { path: 'wmeter', component: WmeterComponent },
+      { path: 'wreading', component: WreadingComponent },
       { path: 'report', component: ReportComponent },
     ],
   },

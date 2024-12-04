@@ -35,11 +35,28 @@
       >
         Generate Report
       </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!reportData"
+        (click)="generatePDF()"
+      >
+        Download as PDF
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="!reportData"
+        (click)="saveAsJPEG()"
+      >
+        Download as JPEG
+      </button>
     </form>
   </mat-card>
 
   <div *ngIf="reportData">
     <h3 class="section-title">Tenant Details</h3>
+
     <table>
       <tr>
         <td>Tenant Name:</td>
@@ -62,40 +79,79 @@
       <tr>
         <td>Electric Meter No:</td>
         <td>{{ reportData.electricMeterNo }}</td>
+
+        <td></td>
+        <td>Water Meter 1 No</td>
+        <td>{{ reportData.wMeter1 }}</td>
+      </tr>
+
+      <tr>
+        <td>Current Reading</td>
+        <td>{{ reportData.electricMeterCurrentReading }}</td>
+        <td></td>
+        <td>Current Reading</td>
+        <td>{{ reportData.wmCurReading1 }}</td>
+      </tr>
+      <tr>
+        <td>Previous Reading</td>
+        <td>{{ reportData.electricMeterPreviousReading }}</td>
+        <td></td>
+        <td>Previous Reading</td>
+        <td>{{ reportData.wmPreReading1 }}</td>
+      </tr>
+      <tr>
+        <td>Consumed Unit</td>
+        <td>{{ reportData.consumedElectricUnit }}</td>
+        <td></td>
+        <td>Consumed Unit</td>
+        <td>{{ reportData.consumeUnit1 }}</td>
+      </tr>
+      <tr></tr>
+
+      <tr>
         <td>Electricity Charge:</td>
         <td>{{ reportData.electricityCharge }}</td>
+        <td></td>
+        <td>Water Meter 2 No</td>
+        <td>{{ reportData.wMeter2 }}</td>
       </tr>
       <tr>
-        <td>Present Reading:</td>
-        <td>{{ reportData.electricMeterCurrentReading }}</td>
         <td>Demand Charge:</td>
         <td>{{ reportData.demandCharge }}</td>
+        <td></td>
+        <td>Current Reading</td>
+        <td>{{ reportData.wmCurReading2 }}</td>
       </tr>
       <tr>
-        <td>Previous Reading:</td>
-        <td>{{ reportData.electricMeterPreviousReading }}</td>
         <td>Meter Rent:</td>
         <td>{{ reportData.meterRent }}</td>
+        <td></td>
+        <td>Previous Reading:</td>
+        <td>{{ reportData.wmPreReading2 }}</td>
       </tr>
       <tr>
-        <td>Consumed Units:</td>
-        <td>{{ reportData.consumedElectricUnit }}</td>
         <td>Principal Amount:</td>
         <td>{{ reportData.principalAmount }}</td>
+        <td></td>
+        <td>Consumed Units:</td>
+        <td>{{ reportData.consumedUnit2 }}</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
         <td>VAT:</td>
         <td>{{ reportData.vat }}</td>
+        <td></td>
+        <td>Total Consumed Units</td>
+        <td>{{ reportData.totalConsumedUnit }}</td>
       </tr>
       <tr>
         <!--  <td>Electricity Bill:</td>
         <td colspan="3">{{ reportData.electricityBill }}</td> -->
-        <td></td>
-        <td></td>
+
         <td style="font-size: 14px; font-weight: bold">Electricity Bill:</td>
         <td style="font-weight: bold">{{ reportData.electricityBill }}</td>
+        <td></td>
+        <td style="font-size: 14px; font-weight: bold">Water Bill</td>
+        <td style="font-weight: bold">{{ reportData.totalWaterBill }}</td>
       </tr>
     </table>
 
@@ -116,12 +172,6 @@
       <tr>
         <td>Total Payable:</td>
         <td>
-          <!-- {{
-            (+reportData.electricityBill || 0) +
-              (+reportData.gasBill || 0) +
-              (+reportData.cleanerBill || 0) +
-              (+reportData.houseRent || 0)
-          }} -->
           {{ reportData.total }}
         </td>
       </tr>
