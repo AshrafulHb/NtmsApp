@@ -60,7 +60,7 @@ export class EreadingComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
     });
-    this._meterService.list().subscribe({
+    this._meterService.listActive().subscribe({
       next: (data) => {
         if (data.status) {
           this.meterList = data.value;

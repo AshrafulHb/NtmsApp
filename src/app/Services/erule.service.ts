@@ -1,29 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Emeter } from '../Interfaces/emeter';
+import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
 import { ResponseApi } from '../Interfaces/response-api';
+import { EbillingRules } from '../Interfaces/ebilling-rules';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EmeterService {
-  private apiUrl: string = environment.endpoint + 'Emeter/';
+export class EruleService {
+  private apiUrl: string = environment.endpoint + 'EbillingRule/';
   constructor(private http: HttpClient) {}
 
-  list(): Observable<ResponseApi> {
-    return this.http.get<ResponseApi>(`${this.apiUrl}List`);
-  }
-  listActive(): Observable<ResponseApi> {
-    return this.http.get<ResponseApi>(`${this.apiUrl}ListActive`);
+  load(): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.apiUrl}GetRule`);
   }
 
-  create(request: Emeter): Observable<ResponseApi> {
+  create(request: EbillingRules): Observable<ResponseApi> {
     return this.http.post<ResponseApi>(`${this.apiUrl}Create`, request);
   }
 
-  edit(request: Emeter): Observable<ResponseApi> {
+  edit(request: EbillingRules): Observable<ResponseApi> {
     return this.http.put<ResponseApi>(`${this.apiUrl}Edit`, request);
   }
   delete(id: number): Observable<ResponseApi> {

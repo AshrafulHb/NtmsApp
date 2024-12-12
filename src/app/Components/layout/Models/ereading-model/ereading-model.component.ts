@@ -78,38 +78,6 @@ export class EreadingModelComponent implements OnInit {
     this.initialFormValues = this.readingForm.getRawValue();
   }
 
-  /* ngOnInit(): void {
-    const today = new Date();
-    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
-    if (this.readingData == null || this.readingData.id == 0) {
-      this.readingForm.patchValue({
-        startDate: startOfMonth,
-        endDate: endOfMonth,
-      });
-    } else {
-      // If readingData is provided, use its values
-      this.readingForm.patchValue({
-        startDate: this.readingData.startDate ?? startOfMonth,
-        endDate: this.readingData.endDate ?? endOfMonth,
-        previousReading: this.readingData.previousReading,
-        currentReading: this.readingData.currentReading,
-        emeterNumber: this.readingData.emeterNumber,
-      });
-    }
-      if (this.readingData != null) {
-      this.readingForm.patchValue({
-        startDate: this.readingData.startDate,
-        endDate: this.readingData.endDate,
-        previousReading: this.readingData.previousReading,
-        currentReading: this.readingData.currentReading,
-        emeterNumber: this.readingData.emeterNumber,
-      });
-      console.log(this.readingForm.value.endDate);
-    }
-  }*/
-
   // Helper function to parse 'dd/MM/yyyy' format to Date object
   parseDateString(dateStr: string): Date | null {
     if (!dateStr) return null;

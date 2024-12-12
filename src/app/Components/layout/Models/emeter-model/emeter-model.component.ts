@@ -35,7 +35,7 @@ export class EmeterModelComponent implements OnInit {
       meterNumber: ['', Validators.required],
       isActive: ['1', Validators.required],
       flatId: [''],
-      flatDescription: [''],
+      flatCode: [''],
     });
     if (this.meterData != null) {
       this.titleCaption = 'Edit';
@@ -55,7 +55,7 @@ export class EmeterModelComponent implements OnInit {
         meterNumber: this.meterData.meterNumber,
         isActive: this.meterData.isActive.toString(),
         flatId: this.meterData.flatId,
-        flatDescription: this.meterData.flatDescription,
+        flatCode: this.meterData.flatCode,
       });
     }
     this.initialFormValues = this.meterForm.getRawValue();
@@ -74,7 +74,7 @@ export class EmeterModelComponent implements OnInit {
 
       isActive: parseInt(this.meterForm.value.isActive),
       flatId: this.meterForm.value.flatId,
-      flatDescription: '',
+      flatCode: '',
     };
     if (this.meterData == null) {
       this._meterService.create(_meter).subscribe({

@@ -1,10 +1,5 @@
-import {
-  Component,
-  ChangeDetectorRef,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { SharedModule } from '../../../../Reusable/shared/shared.module';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
 import {
   FormBuilder,
   FormControl,
@@ -135,10 +130,10 @@ export class ReportComponent {
   }
 
   // Generate PDF function
-  generatePDF() {
+  generatePDF(form: HTMLElement) {
     const data: HTMLElement | null = document.querySelector('.container'); // Target the container div
     if (!data) return;
-
+    this.hideForm(form);
     html2canvas(data).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
@@ -148,11 +143,15 @@ export class ReportComponent {
       pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
       pdf.save('monthly-bill.pdf');
     });
+    setTimeout(() => {
+      this.unhideForm(form);
+    }, 1000); // Simulate saving delay
   }
 
-  saveAsJPEG() {
+  saveAsJPEG(form: HTMLElement) {
     const data: HTMLElement | null = document.querySelector('.container');
     if (!data) return;
+    this.hideForm(form);
 
     html2canvas(data).then((canvas) => {
       const link = document.createElement('a');
@@ -160,5 +159,14 @@ export class ReportComponent {
       link.download = 'monthly-bill.jpeg';
       link.click();
     });
+    setTimeout(() => {
+      this.unhideForm(form);
+    }, 1000); // Simulate saving delay
+  }
+  hideForm(form: HTMLElement) {
+    form.style.display = 'none';
+  }
+  unhideForm(form: HTMLElement) {
+    form.style.display = 'block';
   }
 }

@@ -24,6 +24,16 @@
           <td mat-cell *matCellDef="let element">{{ element.rent }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="gasBill">
+          <th mat-header-cell *matHeaderCellDef>Gas Bill</th>
+          <td mat-cell *matCellDef="let element">{{ element.gasBill }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cleanerBill">
+          <th mat-header-cell *matHeaderCellDef>Cleaner Bill</th>
+          <td mat-cell *matCellDef="let element">{{ element.cleanerBill }}</td>
+        </ng-container>
+
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef style="width: 80px"></th>
           <td mat-cell *matCellDef="let element">

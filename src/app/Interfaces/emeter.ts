@@ -3,5 +3,5 @@ export interface Emeter {
   meterNumber: string;
   isActive: number;
   flatId?: number;
-  flatDescription?: string;
+  flatCode?: string;
 }

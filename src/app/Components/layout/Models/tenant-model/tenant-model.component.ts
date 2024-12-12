@@ -32,10 +32,11 @@ export class TenantModelComponent implements OnInit {
   ) {
     this.tenantForm = this.fb.group({
       name: ['', Validators.required],
-      occupation: ['', Validators.required],
-      paddress: ['', Validators.required],
-      telephone: ['', Validators.required],
-      startDate: ['', Validators.required],
+      occupation: [''],
+      paddress: [''],
+      telephone: [''],
+      securityDeposit: [''],
+      startDate: [''],
       isActive: ['1', Validators.required],
       flatId: ['', Validators.required],
     });
@@ -57,6 +58,7 @@ export class TenantModelComponent implements OnInit {
         occupation: this.tenantData.occupation,
         paddress: this.tenantData.paddress,
         telephone: this.tenantData.telephone,
+        securityDeposit: this.tenantData.securityDeposit,
         startDate: this.tenantData.startDate,
         isActive: this.tenantData.isActive.toString(),
         flatId: this.tenantData.flatId,
@@ -79,10 +81,11 @@ export class TenantModelComponent implements OnInit {
       occupation: this.tenantForm.value.occupation,
       paddress: this.tenantForm.value.paddress,
       telephone: this.tenantForm.value.telephone,
+      securityDeposit: this.tenantForm.value.securityDeposit,
       startDate: this.tenantForm.value.startDate,
       isActive: parseInt(this.tenantForm.value.isActive),
       flatId: this.tenantForm.value.flatId,
-      flatDescription: '',
+      flatCode: '',
     };
     if (this.tenantData == null) {
       this._tenantService.create(_tenant).subscribe({

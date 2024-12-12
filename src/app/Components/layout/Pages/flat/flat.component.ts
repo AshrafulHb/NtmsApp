@@ -10,13 +10,13 @@ import { FlatModelComponent } from '../../Models/flat-model/flat-model.component
 import Swal from 'sweetalert2';
 
 @Component({
-    selector: 'app-flat',
-    imports: [SharedModule],
-    templateUrl: './flat.component.html',
-    styleUrl: './flat.component.css'
+  selector: 'app-flat',
+  imports: [SharedModule],
+  templateUrl: './flat.component.html',
+  styleUrl: './flat.component.css',
 })
 export class FlatComponent implements OnInit, AfterViewInit {
-  tableColumns: string[] = ['code', 'rent', 'action'];
+  tableColumns: string[] = ['code', 'rent', 'gasBill', 'cleanerBill', 'action'];
   initialData: Flat[] = [];
   flatDataList = new MatTableDataSource(this.initialData);
   @ViewChild(MatPaginator) paginationTable!: MatPaginator;

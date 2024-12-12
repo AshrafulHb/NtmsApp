@@ -12,6 +12,9 @@
       <mat-label>Search</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input />
     </mat-form-field>
+    <mat-checkbox (change)="toggleActiveFilter($event.checked)">
+      Show only active meters
+    </mat-checkbox>
     <div class="mat-elevation-z2">
       <table mat-table [dataSource]="meterDataList">
         <ng-container matColumnDef="meterNumber">
@@ -19,12 +22,12 @@
           <td mat-cell *matCellDef="let element">{{ element.meterNumber }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="flatDescription">
+        <ng-container matColumnDef="flatCode">
           <th mat-header-cell *matHeaderCellDef style="width: 100px">
             Flat Code
           </th>
           <td mat-cell *matCellDef="let element">
-            {{ element.flatDescription }}
+            {{ element.flatCode }}
           </td>
         </ng-container>
 

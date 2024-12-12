@@ -1,0 +1,27 @@
+.edit-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px; /* Space between fields*/
+}
+
+.form-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+button{
+ margin-left: 4px;
+  width: 120px;
+}
+mat-card{
+  max-width: 700px;
+}
+button{
+  margin-left: 5px;
+}

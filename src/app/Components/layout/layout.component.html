@@ -8,7 +8,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav opened="true" mode="side" style="width: 200px">
+  <mat-sidenav #sidenav opened="true" mode="side" style="width: 240px">
     <mat-nav-list>
       <mat-list-item routerLink="/pages/tenant">
         <div style="display: flex; gap: 5px">
@@ -34,21 +34,35 @@
       <mat-list-item routerLink="/pages/ereading">
         <div style="display: flex; gap: 5px">
           <mat-icon mat-list-icon>edit_note</mat-icon>
-          <div mat-line>Readings</div>
+          <div mat-line>Electric Meter Readings</div>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/pages/erules">
+        <div style="display: flex; gap: 5px">
+          <mat-icon mat-list-icon>bolt</mat-icon>
+          <div mat-line>Electric Billing Rules</div>
         </div>
       </mat-list-item>
 
       <mat-list-item routerLink="/pages/wmeter">
         <div style="display: flex; gap: 5px">
-          <mat-icon mat-list-icon>electric_meter</mat-icon>
+          <mat-icon mat-list-icon>opacity</mat-icon>
           <div mat-line>Water Meter</div>
         </div>
       </mat-list-item>
 
       <mat-list-item routerLink="/pages/wreading">
         <div style="display: flex; gap: 5px">
-          <mat-icon mat-list-icon>edit_note</mat-icon>
-          <div mat-line>Water Readings</div>
+          <mat-icon mat-list-icon>analytics</mat-icon>
+          <div mat-line>Water Meter Readings</div>
+        </div>
+      </mat-list-item>
+
+      <mat-list-item routerLink="/pages/wrules">
+        <div style="display: flex; gap: 5px">
+          <mat-icon mat-list-icon>water_drop</mat-icon>
+          <div mat-line>Water Billing Rules</div>
         </div>
       </mat-list-item>
 

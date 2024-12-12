@@ -7,6 +7,8 @@ import { EreadingComponent } from './Components/layout/Pages/ereading/ereading.c
 import { ReportComponent } from './Components/layout/Pages/report/report.component';
 import { WmeterComponent } from './Components/layout/Pages/wmeter/wmeter.component';
 import { WreadingComponent } from './Components/layout/Pages/wreading/wreading.component';
+import { ErulesComponent } from './Components/layout/Pages/erules/erules.component';
+import { WrulesComponent } from './Components/layout/Pages/wrules/wrules.component';
 
 export const routes: Routes = [
   { path: '', component: LayoutComponent, pathMatch: 'full' },
@@ -22,6 +24,8 @@ export const routes: Routes = [
       { path: 'wmeter', component: WmeterComponent },
       { path: 'wreading', component: WreadingComponent },
       { path: 'report', component: ReportComponent },
+      { path: 'erules', component: ErulesComponent },
+      { path: 'wrules', component: WrulesComponent },
     ],
   },
   { path: '**', redirectTo: 'layout', pathMatch: 'full' },

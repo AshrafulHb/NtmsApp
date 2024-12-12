@@ -22,8 +22,9 @@ export class TenantComponent implements OnInit, AfterViewInit {
     'occupation',
     'paddress',
     'telephone',
+    'securityDeposit',
     'startDate',
-    'flatDescription',
+    'flatCode',
     'isActive',
 
     'action',
