@@ -2,7 +2,7 @@
   <h1>MONTHLY BILL</h1>
   <h3>180/7 East Rampura, Dhaka - 1219</h3>
 
-  <mat-card>
+  <!-- <mat-card>
     <form [formGroup]="reportForm" (ngSubmit)="report()">
       <mat-form-field appearance="outline">
         <mat-label>Select Tenant</mat-label>
@@ -15,9 +15,9 @@
 
       <mat-form-field>
         <mat-label>Month and Year</mat-label>
-        <input matInput [matDatepicker]="dp" [formControl]="month" />
-        <!-- <mat-hint>MM/YYYY</mat-hint> -->
-        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="dp" [formControl]="month" />-->
+  <!-- <mat-hint>MM/YYYY</mat-hint> -->
+  <!--  <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker
           #dp
           startView="multi-year"
@@ -48,6 +48,56 @@
         color="accent"
         [disabled]="!reportData"
         (click)="saveAsJPEG()"
+      >
+        Download as JPEG
+      </button>
+    </form>
+  </mat-card>-->
+  <mat-card>
+    <form [formGroup]="reportForm" (ngSubmit)="report()" #myForm>
+      <mat-form-field appearance="outline">
+        <mat-label>Select Tenant</mat-label>
+        <mat-select formControlName="tenantId">
+          <mat-option *ngFor="let tenant of tenantList" [value]="tenant.id">
+            {{ tenant.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Month and Year</mat-label>
+        <input matInput [matDatepicker]="dp" [formControl]="month" />
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker
+          #dp
+          startView="multi-year"
+          (monthSelected)="setMonthAndYear($event, dp)"
+          panelClass="example-month-picker"
+        >
+        </mat-datepicker>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="reportForm.invalid"
+      >
+        Generate Report
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!reportData"
+        (click)="generatePDF(myForm)"
+      >
+        Download as PDF
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="!reportData"
+        (click)="saveAsJPEG(myForm)"
       >
         Download as JPEG
       </button>

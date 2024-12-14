@@ -8,12 +8,13 @@ import { Emeter } from '../../../../Interfaces/emeter';
 import { UtilityService } from '../../../../Reusable/utility.service';
 import { EmeterService } from '../../../../Services/emeter.service';
 import { EmeterModelComponent } from '../../Models/emeter-model/emeter-model.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-    selector: 'app-emeter',
-    imports: [SharedModule],
-    templateUrl: './emeter.component.html',
-    styleUrl: './emeter.component.css'
+  selector: 'app-emeter',
+  imports: [SharedModule, MatCheckboxModule],
+  templateUrl: './emeter.component.html',
+  styleUrl: './emeter.component.css',
 })
 export class EmeterComponent implements OnInit, AfterViewInit {
   tableColumns: string[] = [
@@ -24,6 +25,7 @@ export class EmeterComponent implements OnInit, AfterViewInit {
   ];
   initialData: Emeter[] = [];
   meterDataList = new MatTableDataSource(this.initialData);
+  showOnlyActive: boolean = false;
   @ViewChild(MatPaginator) paginationTable!: MatPaginator;
 
   constructor(
@@ -35,7 +37,10 @@ export class EmeterComponent implements OnInit, AfterViewInit {
   getMeters() {
     this._meterService.list().subscribe({
       next: (data) => {
-        if (data.status) this.meterDataList.data = data.value;
+        if (data.status) {
+          this.initialData = data.value;
+          this.applyActiveFilter();
+        } //this.meterDataList.data = data.value;
         else this._utilityService.showAlert('No meter found', 'Oops');
       },
       error: (e) => {},
@@ -50,7 +55,27 @@ export class EmeterComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.meterDataList.filter = filterValue.trim().toLocaleLowerCase();
+    // this.meterDataList.filter = filterValue.trim().toLocaleLowerCase();
+    this.meterDataList.filter = filterValue;
+    this.meterDataList.filterPredicate = (emeter: Emeter, filter: string) => {
+      const matchesFilter = emeter.meterNumber
+        .toLocaleLowerCase()
+        .includes(filter);
+      const isActiveMatch = this.showOnlyActive ? emeter.isActive === 1 : true;
+      return matchesFilter && isActiveMatch;
+    };
+  }
+
+  toggleActiveFilter(showOnlyActive: boolean) {
+    this.showOnlyActive = showOnlyActive;
+    this.applyActiveFilter();
+  }
+
+  applyActiveFilter() {
+    const filteredData = this.showOnlyActive
+      ? this.initialData.filter((emeter) => emeter.isActive === 1)
+      : this.initialData;
+    this.meterDataList.data = filteredData;
   }
 
   newMeter() {

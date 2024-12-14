@@ -15,6 +15,9 @@ export class EmeterService {
   list(): Observable<ResponseApi> {
     return this.http.get<ResponseApi>(`${this.apiUrl}List`);
   }
+  listActive(): Observable<ResponseApi> {
+    return this.http.get<ResponseApi>(`${this.apiUrl}ListActive`);
+  }
 
   create(request: Emeter): Observable<ResponseApi> {
     return this.http.post<ResponseApi>(`${this.apiUrl}Create`, request);
