@@ -1,0 +1,180 @@
+<div style="text-align: center">
+  <h2>Ebilling Rule Details</h2>
+</div>
+<div class="container">
+  <mat-card>
+    <table>
+      <tr>
+        <!-- <th>ID:</th>
+        <td>{{ initialData.id }}</td> -->
+      </tr>
+      <tr>
+        <th>From1:</th>
+        <td>{{ initialData.from1 }}</td>
+        <th>To1:</th>
+        <td>{{ initialData.to1 }}</td>
+        <th>Rate1:</th>
+        <td>{{ initialData.rate1 }}</td>
+      </tr>
+      <tr>
+        <th>From2:</th>
+        <td>{{ initialData.from2 }}</td>
+        <th>To2:</th>
+        <td>{{ initialData.to2 }}</td>
+        <th>Rate2:</th>
+        <td>{{ initialData.rate2 }}</td>
+      </tr>
+      <tr>
+        <th>From3:</th>
+        <td>{{ initialData.from3 }}</td>
+        <th>To3:</th>
+        <td>{{ initialData.to3 }}</td>
+        <th>Rate3:</th>
+        <td>{{ initialData.rate3 }}</td>
+      </tr>
+      <tr>
+        <th>From4:</th>
+        <td>{{ initialData.from4 }}</td>
+        <th>To4:</th>
+        <td>{{ initialData.to4 }}</td>
+        <th>Rate4:</th>
+        <td>{{ initialData.rate4 }}</td>
+      </tr>
+
+      <tr>
+        <th>Demand Charge:</th>
+        <td>{{ initialData.demandCharge }}</td>
+        <th>Commercial Demand Charge:</th>
+        <td>{{ initialData.commercialDc }}</td>
+        <th>Commercial Rate:</th>
+        <td>{{ initialData.commercialRate }}</td>
+      </tr>
+      <tr>
+        <th>Meter Rent:</th>
+        <td>{{ initialData.meterRent }}</td>
+        <th>VAT:</th>
+        <td>{{ initialData.vat }}</td>
+      </tr>
+
+      <ng-container>
+        <tr>
+          <th></th>
+          <td></td>
+          <td>
+            <button mat-raised-button color="primary" (click)="addRule()">
+              Add Rule
+            </button>
+            <button
+              mat-raised-button
+              color="primary"
+              style="margin: 10, 10, 10, 10"
+              (click)="editRule(initialData)"
+            >
+              Edit
+            </button>
+            <button
+              mat-button
+              color="warn"
+              (click)="deleteRule(initialData.id)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+  </mat-card>
+
+  <!-- Edit Form -->
+  <div *ngIf="isEditing || isAdding">
+    <h3>{{ isEditing ? "Edit" : "Add" }} Rule</h3>
+    <mat-card>
+      <form [formGroup]="ruleForm" (ngSubmit)="saveRule()" class="edit-form">
+        <div class="form-grid">
+          <mat-form-field appearance="fill">
+            <mat-label>From1</mat-label>
+            <input matInput formControlName="from1" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>To1</mat-label>
+            <input matInput formControlName="to1" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Rate1</mat-label>
+            <input matInput formControlName="rate1" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>From2</mat-label>
+            <input matInput formControlName="from2" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>To2</mat-label>
+            <input matInput formControlName="to2" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Rate2</mat-label>
+            <input matInput formControlName="rate2" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>From3</mat-label>
+            <input matInput formControlName="from3" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>To3</mat-label>
+            <input matInput formControlName="to3" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Rate3</mat-label>
+            <input matInput formControlName="rate3" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>From4</mat-label>
+            <input matInput formControlName="from4" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>To4</mat-label>
+            <input matInput formControlName="to4" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Rate4</mat-label>
+            <input matInput formControlName="rate4" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Demand Charge</mat-label>
+            <input matInput formControlName="demandCharge" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Commercial Rate</mat-label>
+            <input matInput formControlName="commercialRate" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Commercial Demand Charge</mat-label>
+            <input matInput formControlName="commercialDc" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Meter Rent</mat-label>
+            <input matInput formControlName="meterRent" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Vat %</mat-label>
+            <input matInput formControlName="vat" />
+          </mat-form-field>
+
+          <!-- Add other fields here -->
+        </div>
+
+        <div>
+          <button mat-raised-button color="primary" type="submit">Save</button>
+          <button mat-raised-button color="warn" (click)="cancelEdit()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

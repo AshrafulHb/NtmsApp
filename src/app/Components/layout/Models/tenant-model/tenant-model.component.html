@@ -36,6 +36,18 @@
 
       <mat-grid-tile>
         <mat-form-field appearance="outline">
+          <mat-label>Security Deposit</mat-label>
+          <input
+            matInput
+            autocomplete="off"
+            formControlName="securityDeposit"
+          />
+          <mat-icon matSuffix>money_exchange</mat-icon>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="outline">
           <mat-label>Start Date</mat-label>
           <input matInput autocomplete="off" formControlName="startDate" />
           <mat-icon matSuffix>calendar_today</mat-icon>

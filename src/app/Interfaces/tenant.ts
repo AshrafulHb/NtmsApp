@@ -4,8 +4,9 @@ export interface Tenant {
   occupation?: string;
   paddress?: string;
   telephone?: string;
+  securityDeposit?: string;
   startDate: string;
   isActive: number;
   flatId?: number;
-  flatDescription?: string;
+  flatCode?: string;
 }

@@ -17,12 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrl: './emeter.component.css',
 })
 export class EmeterComponent implements OnInit, AfterViewInit {
-  tableColumns: string[] = [
-    'meterNumber',
-    'flatDescription',
-    'isActive',
-    'action',
-  ];
+  tableColumns: string[] = ['meterNumber', 'flatCode', 'isActive', 'action'];
   initialData: Emeter[] = [];
   meterDataList = new MatTableDataSource(this.initialData);
   showOnlyActive: boolean = false;

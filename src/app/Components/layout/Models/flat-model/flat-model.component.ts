@@ -29,6 +29,8 @@ export class FlatModelComponent implements OnInit {
       code: ['', Validators.required],
 
       rent: ['', Validators.required],
+      gasBill: ['', Validators.required],
+      cleanerBill: ['', Validators.required],
     });
     if (this.flatData != null) {
       this.titleCaption = 'Edit';
@@ -41,6 +43,8 @@ export class FlatModelComponent implements OnInit {
       this.flatForm.patchValue({
         code: this.flatData.code,
         rent: this.flatData.rent,
+        gasBill: this.flatData.gasBill,
+        cleanerBill: this.flatData.cleanerBill,
       });
     }
     this.initialFormValues = this.flatForm.getRawValue();
@@ -58,6 +62,8 @@ export class FlatModelComponent implements OnInit {
       id: this.flatData == null ? 0 : this.flatData.id,
       code: this.flatForm.value.code,
       rent: this.flatForm.value.rent,
+      gasBill: this.flatForm.value.gasBill,
+      cleanerBill: this.flatForm.value.cleanerBill,
     };
     if (this.flatData == null) {
       this._flatService.create(_flat).subscribe({
